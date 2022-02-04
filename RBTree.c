@@ -61,3 +61,42 @@ void RBRightRotate(RBTree* tree, RBNode* primary) {
     secondary->child_r = primary;
     primary->parent = secondary;
 }
+
+RBNode* RBInsert(RBTree* tree, void* data) {
+    //Allocate a new empty node
+    RBNode* new_node = (RBNode*) malloc(sizeof(RBNode));
+    new_node->child_r = new_node->child_l = new_node->parent = NULL;
+    new_node->color = RED;
+
+    //Set the node to hold the data
+    new_node->data = data;
+
+    RBNode* temp = NULL;
+    RBNode* cursor = tree->root;
+
+    //Loop through the tree until the leaves
+    while(cursor != NULL) {
+        temp = cursor;
+
+        //Proceed down on the left side if data is less than cursor
+        if(tree->compare(data, temp->data) < 0) {
+            cursor = cursor->child_l;
+        //Proceed down on the right side if data is larger than cursor
+        } else {
+            cursor = cursor->child_r;
+        }
+    }
+
+    //Set the new_node parent
+    new_node->parent = temp;
+
+    //Assign the new_node to the parent as a child according to data comparison
+    if(temp == NULL)
+        tree->root = new_node;
+    else if(tree->compare(data, temp->data))
+        temp->child_l = new_node;
+    else
+        temp->child_r = new_node;
+
+    //Call fixup
+}
