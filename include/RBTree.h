@@ -7,6 +7,8 @@
 #ifndef RBTREE_H
 #define RBTREE_H
 
+#include <stdlib.h>
+
 
 #define RED 255 ///< a macro definition for the understanding of color Red.
 #define BLACK 0 ///< a macro definition for the understanding of color Black.
@@ -50,6 +52,8 @@ typedef struct RBTree {
      * @return 1 if a > b, -1 if a < b, and 0 if a = b.
      */
     int (*compare)(void* a, void* b); 
+
+    RBNode nil; ///< A special null node to be used in the Red Black Tree.
 } RBTree;
 
 /**
