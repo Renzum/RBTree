@@ -1,5 +1,29 @@
 #include "RBTree.h"
+#include <stdio.h>
 #include <stdlib.h>
+
+RBTree* RBTreeInit(int (*_compare)(void*, void* b)) {
+    if(_compare == NULL) {
+        fprintf(stderr, "No comparison function is provided.\n");
+        return 0;
+    }
+
+    //Allocate a dynamic instance of the Red Black Tree structure
+    RBTree* new_tree = (RBTree*) malloc(sizeof(RBTree));
+    if(new_tree == NULL) {
+        fprintf(stderr, "Failed to create a Red Black Tree instance.\n");
+        return 0;
+    }
+
+    //Assign all values of the nil node to 0 and set it to root
+    new_tree->nil = (RBNode) {BLACK, NULL, NULL, NULL, NULL};
+    new_tree->root = &new_tree->nil;
+
+    //Set the comparison function of the 
+    new_tree->compare = _compare;
+
+    new_tree->size = 0;
+}
 
 /* Below is the standard Left Rotate for a Red-Black Tree
  * For detailed overview, please consult the book "Introduction to Algorithms"
