@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 RBTree* RBTreeInit(int (*_compare)(void*, void* b)) {
+    //Make sure that a valid comparison function for data is provided.
     if(_compare == NULL) {
         fprintf(stderr, "No comparison function is provided.\n");
         return 0;
@@ -11,7 +12,9 @@ RBTree* RBTreeInit(int (*_compare)(void*, void* b)) {
     //Allocate a dynamic instance of the Red Black Tree structure
     RBTree* new_tree = (RBTree*) malloc(sizeof(RBTree));
     if(new_tree == NULL) {
-        fprintf(stderr, "Failed to create a Red Black Tree instance.\n");
+        fprintf(stderr, "Internal Error:"
+                "Failed to allocate a Red Black Tree instance.\n");
+
         return 0;
     }
 
@@ -23,19 +26,27 @@ RBTree* RBTreeInit(int (*_compare)(void*, void* b)) {
     new_tree->compare = _compare;
 
     new_tree->size = 0;
+
+    return new_tree;
 }
 
 /* Below is the standard Left Rotate for a Red-Black Tree
  * For detailed overview, please consult the book "Introduction to Algorithms"
  * */
 void RBLeftRotate(RBTree* tree, RBNode* primary) {
+    //Make sure the provided pointers are not NULL
+    if(!tree || !primary) {
+        fprintf(stderr, "Error: Invalid tree or node provided.\n");
+        return;
+    }
+
     //Assign the right child of the primary to be the secondary target
     RBNode* secondary = primary->child_r;
 
     //Set the secondary's left child to be the right child of the primary
     primary->child_r = secondary->child_l;
 
-    //If it was non-empty, set the parent
+    //If it was not nil, set the parent accordingly
     if(secondary->child_l != &tree->nil)
         secondary->child_l->parent = primary;
 
@@ -58,6 +69,12 @@ void RBLeftRotate(RBTree* tree, RBNode* primary) {
 }
 
 void RBRightRotate(RBTree* tree, RBNode* primary) {
+    //Make sure the provided pointers are not NULL
+    if(!tree || !primary) {
+        fprintf(stderr, "Error: Invalid tree or node provided.\n");
+        return;
+    }
+
     //Assign the left child of the primary to be the secondary target
     RBNode* secondary = primary->child_l;
 
@@ -87,8 +104,19 @@ void RBRightRotate(RBTree* tree, RBNode* primary) {
 }
 
 RBNode* RBInsert(RBTree* tree, void* data) {
+    //Make sure valid data is provided
+    //NOTE: This is necessary since insertion depends on the comparison of keys.
+    if(data == NULL) {
+        fprintf(stderr, "Error: No data provided for insertion.\n");
+        return NULL;
+    }
+
     //Allocate a new empty node
     RBNode* new_node = (RBNode*) malloc(sizeof(RBNode));
+    if(!new_node) {
+        fprintf(stderr, "Internal Error: Failed to allocate a new node.\n");
+        return 0;
+    }
     new_node->child_r = new_node->child_l = new_node->parent = &tree->nil;
     new_node->color = RED;
 
@@ -123,4 +151,6 @@ RBNode* RBInsert(RBTree* tree, void* data) {
         temp->child_r = new_node;
 
     //Call fixup
+
+    return new_node;
 }

@@ -10,8 +10,8 @@
 #include <stdlib.h>
 
 
-#define RED 255 ///< a macro definition for the understanding of color Red.
-#define BLACK 0 ///< a macro definition for the understanding of color Black.
+#define RED 0x000000ff ///< a macro definition for the understanding of color Red.
+#define BLACK 0x00000000 ///< a macro definition for the understanding of color Black.
 
 /**
  * @brief Node data structure for the Red Black Tree.
@@ -23,7 +23,8 @@
 typedef struct RBTreeNode {
     unsigned char color; ///< The color of the red black node. 
     void* data; ///< A pointer to the data stored in the node.
-    struct RBTreeNode* parent; ///< Pointer to the parent node
+
+    struct RBTreeNode* parent; ///< Pointer to the parent node 
     struct RBTreeNode* child_l; ///< Pointer to the left child node.
     struct RBTreeNode* child_r; ///< Pointer to the right child node.
 } RBNode;
