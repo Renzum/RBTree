@@ -145,7 +145,7 @@ RBNode* RBInsert(RBTree* tree, void* data) {
     //Assign the new_node to the parent as a child according to data comparison
     if(temp == &tree->nil)
         tree->root = new_node;
-    else if(tree->compare(data, temp->data))
+    else if(tree->compare(data, temp->data) < 0)
         temp->child_l = new_node;
     else
         temp->child_r = new_node;
