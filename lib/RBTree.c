@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-RBTree* RBTreeInit(int (*_compare)(void*, void* b)) {
+RBTree* RBTreeInit(int (*_compare)(void*, void*)) {
     //Make sure that a valid comparison function for data is provided.
     if(_compare == NULL) {
         fprintf(stderr, "No comparison function is provided.\n");
@@ -163,7 +163,7 @@ void RBInsertFixup(RBTree* tree, RBNode* target) {
             //Get the uncle (right child of the grandparent) of the target
             RBNode* uncle = target->parent->parent->child_r;
             //If the uncle is red
-            if(uncle->color = RED) {
+            if(uncle->color == RED) {
                 //Color both parent and uncle black and color grandparent red
                 target->parent->color = BLACK;
                 uncle->color = BLACK;
@@ -192,7 +192,7 @@ void RBInsertFixup(RBTree* tree, RBNode* target) {
             //Get the uncle (left child of the grandparent) of the target
             RBNode* uncle = target->parent->parent->child_l;
             //If the uncle is red
-            if(uncle->color = RED) {
+            if(uncle->color == RED) {
                 //Color both parent and uncle black and color grandparent red
                 target->parent->color = BLACK;
                 uncle->color = BLACK;

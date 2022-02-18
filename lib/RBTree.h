@@ -57,6 +57,8 @@ typedef struct RBTree {
     RBNode nil; ///< A special null node to be used in the Red Black Tree.
 } RBTree;
 
+RBTree* RBTreeInit(int (*_compare)(void* a, void* b));
+
 /**
  * @brief A function that performs a left rotation on a given node.
  *
