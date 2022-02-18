@@ -57,6 +57,14 @@ typedef struct RBTree {
     RBNode nil; ///< A special null node to be used in the Red Black Tree.
 } RBTree;
 
+/**
+ * @brief A Red Black Tree initializer function.
+ *
+ * @param _compare A function for comparing the data
+ * stored inside the Red Black Tree. Must return -1 if a < b, 1 if a > b, and 0 if a = b.
+ *
+ * This function is used to allocate and properly initialize a Red Black Tree instance. Creating a Red Black Tree without this function will result in error behavior.
+ */
 RBTree* RBTreeInit(int (*_compare)(void* a, void* b));
 
 /**
