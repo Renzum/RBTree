@@ -96,7 +96,7 @@ void RBRightRotate(RBTree* tree, RBNode* primary);
  * @param data The data which the new node will hold.
  */
 RBNode* RBInsert(RBTree* tree, void* data);
-RBNode* RBInsertFixup(RBTree*, RBNode*);
+void RBInsertFixup(RBTree*, RBNode*);
 
 
 #endif 

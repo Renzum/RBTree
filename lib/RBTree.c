@@ -150,7 +150,76 @@ RBNode* RBInsert(RBTree* tree, void* data) {
     else
         temp->child_r = new_node;
 
-    //Call fixup
+    RBInsertFixup(tree, new_node);
 
     return new_node;
+}
+
+void RBInsertFixup(RBTree* tree, RBNode* target) {
+    //Repeat while the parent is RED
+    while(target->parent->color == RED) {
+        //If the parent is a left child of the grandparent
+        if(target->parent == target->parent->parent->child_l) {
+            //Get the uncle (right child of the grandparent) of the target
+            RBNode* uncle = target->parent->parent->child_r;
+            //If the uncle is red
+            if(uncle->color = RED) {
+                //Color both parent and uncle black and color grandparent red
+                target->parent->color = BLACK;
+                uncle->color = BLACK;
+                target->parent->parent->color = RED;
+                
+                //Select grandparent for the next iteration
+                target = target->parent->parent;
+
+            //Else if uncle is black
+            } else{
+
+                //If the target is a right child
+                if(target == target->parent->child_r) {
+                    //Set the parent as target and perform a left rotation.
+                    target = target->parent;
+                    RBLeftRotate(tree, target);
+                }
+
+                //Change the parent's color to black
+                target->parent->color = BLACK;
+                target->parent->parent->color = RED;
+                RBRightRotate(tree, target->parent->parent);
+            }
+        } else {
+            
+            //Get the uncle (left child of the grandparent) of the target
+            RBNode* uncle = target->parent->parent->child_l;
+            //If the uncle is red
+            if(uncle->color = RED) {
+                //Color both parent and uncle black and color grandparent red
+                target->parent->color = BLACK;
+                uncle->color = BLACK;
+                target->parent->parent->color = RED;
+                
+                //Select grandparent for the next iteration
+                target = target->parent->parent;
+
+            //Else if uncle is black
+            } else{
+
+                //If the target is a right child
+                if(target == target->parent->child_l) {
+                    //Set the parent as target and perform a left rotation.
+                    target = target->parent;
+                    RBRightRotate(tree, target);
+                }
+
+                //Change the parent's color to black
+                target->parent->color = BLACK;
+                //Change grandparent to red;
+                target->parent->parent->color = RED;
+                //Perform a left rotation on the grandparent
+                RBLeftRotate(tree, target->parent->parent);
+            }
+        }
+    }
+
+    tree->root->color = BLACK;
 }
