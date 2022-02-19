@@ -106,5 +106,7 @@ void RBRightRotate(RBTree* tree, RBNode* primary);
 RBNode* RBInsert(RBTree* tree, void* data);
 void RBInsertFixup(RBTree*, RBNode*);
 
+RBNode* RBSearchNode(RBTree* tree, void* data);
+void* RBFindData(RBTree* tree, void* data);
 
 #endif 

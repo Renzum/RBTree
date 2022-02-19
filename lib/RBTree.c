@@ -220,3 +220,21 @@ void RBInsertFixup(RBTree* tree, RBNode* target) {
 
     tree->root->color = BLACK;
 }
+
+RBNode* RBSearchNode(RBTree* tree, void* data) {
+    RBNode* cursor = tree->root;
+    while(cursor != NULL) {
+        if(tree->compare(data, cursor->data) < 0)
+            cursor = cursor->child_l;
+        else if(tree->compare(data, cursor->data) > 0)
+            cursor = cursor->child_r;
+        else
+            break;
+    }
+
+    return cursor;
+}
+
+void* RBFindData(RBTree* tree, void* data) {
+    return RBSearchNode(tree, data)->data;
+}
