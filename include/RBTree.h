@@ -53,8 +53,6 @@ typedef struct RBTree {
      * @return a positive integer if a > b, a negative integer if a < b, and return 0 if a = b.
      */
     int (*compare)(const void* a, const void* b); 
-
-    RBNode nil; ///< A special null node to be used in the Red Black Tree.
 } RBTree;
 
 /**
