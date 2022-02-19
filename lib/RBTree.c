@@ -18,10 +18,6 @@ RBTree* RBTreeInit(int (*_compare)(const void*, const void*)) {
         return 0;
     }
 
-    //Assign all values of the nil node to 0 and set it to root
-    new_tree->nil = (RBNode) {BLACK, NULL, NULL, NULL, NULL};
-    new_tree->root = &new_tree->nil;
-
     //Set the comparison function of the 
     new_tree->compare = _compare;
 
