@@ -153,13 +153,13 @@ RBNode* RBInsert(RBTree* tree, void* data) {
 
 void RBInsertFixup(RBTree* tree, RBNode* target) {
     //Repeat while the parent is RED
-    while(target->parent->color == RED) {
+    while(target->parent != NULL && target->parent->color == RED) {
         //If the parent is a left child of the grandparent
-        if(target->parent == target->parent->parent->child_l) {
+        if(target->parent->parent != NULL && target->parent == target->parent->parent->child_l) {
             //Get the uncle (right child of the grandparent) of the target
             RBNode* uncle = target->parent->parent->child_r;
             //If the uncle is red
-            if(uncle->color == RED) {
+            if(uncle != NULL && uncle->color == RED) {
                 //Color both parent and uncle black and color grandparent red
                 target->parent->color = BLACK;
                 uncle->color = BLACK;
@@ -169,7 +169,7 @@ void RBInsertFixup(RBTree* tree, RBNode* target) {
                 target = target->parent->parent;
 
             //Else if uncle is black
-            } else{
+            } else if(uncle != NULL && uncle->color == BLACK) {
 
                 //If the target is a right child
                 if(target == target->parent->child_r) {
@@ -183,12 +183,13 @@ void RBInsertFixup(RBTree* tree, RBNode* target) {
                 target->parent->parent->color = RED;
                 RBRightRotate(tree, target->parent->parent);
             }
-        } else {
-            
+        //If parent is a right child of the grandparent
+        } else if(target->parent->parent != NULL &&
+                target->parent == target->parent->parent->child_r) { 
             //Get the uncle (left child of the grandparent) of the target
             RBNode* uncle = target->parent->parent->child_l;
             //If the uncle is red
-            if(uncle->color == RED) {
+            if(uncle != NULL && uncle->color == RED) {
                 //Color both parent and uncle black and color grandparent red
                 target->parent->color = BLACK;
                 uncle->color = BLACK;
