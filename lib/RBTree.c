@@ -43,14 +43,14 @@ void RBLeftRotate(RBTree* tree, RBNode* primary) {
     primary->child_r = secondary->child_l;
 
     //If it was not nil, set the parent accordingly
-    if(secondary->child_l != &tree->nil)
+    if(secondary->child_l != NULL)
         secondary->child_l->parent = primary;
 
     //Set secondary's parent to be the primary's parent
     secondary->parent = primary->parent;
 
     //If primary was the root of the tree, set secondary to be the new root
-    if(primary->parent == &tree->nil)
+    if(primary->parent == NULL)
         tree->root = secondary;
     //If primary was a left child, put secondary in its place
     else if(primary == primary->parent->child_l)
@@ -78,14 +78,14 @@ void RBRightRotate(RBTree* tree, RBNode* primary) {
     primary->child_l = secondary->child_r;
 
     //If it was non-empty, set the parent
-    if(secondary->child_r != &tree->nil)
+    if(secondary->child_r != NULL)
         secondary->child_r->parent = primary;
 
     //Set secondary's parent to be the primary's parent
     secondary->parent = primary->parent;
 
     //If primary was the root of the tree, set secondary to be the new root
-    if(primary->parent == &tree->nil)
+    if(primary->parent == NULL)
         tree->root = secondary;
     //If primary was a left child, put secondary in its place
     else if(primary == primary->parent->child_l)
