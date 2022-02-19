@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-RBTree* RBTreeInit(int (*_compare)(void*, void*)) {
+RBTree* RBTreeInit(int (*_compare)(const void*, const void*)) {
     //Make sure that a valid comparison function for data is provided.
     if(_compare == NULL) {
         fprintf(stderr, "No comparison function is provided.\n");

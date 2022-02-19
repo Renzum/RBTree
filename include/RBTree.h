@@ -50,9 +50,9 @@ typedef struct RBTree {
      * @param a void pointer to data
      * @param b void pointer to data
      *
-     * @return 1 if a > b, -1 if a < b, and 0 if a = b.
+     * @return a positive integer if a > b, a negative integer if a < b, and return 0 if a = b.
      */
-    int (*compare)(void* a, void* b); 
+    int (*compare)(const void* a, const void* b); 
 
     RBNode nil; ///< A special null node to be used in the Red Black Tree.
 } RBTree;
@@ -65,7 +65,7 @@ typedef struct RBTree {
  *
  * This function is used to allocate and properly initialize a Red Black Tree instance. Creating a Red Black Tree without this function will result in error behavior.
  */
-RBTree* RBTreeInit(int (*_compare)(void* a, void* b));
+RBTree* RBTreeInit(int (*_compare)(const void* a, const void* b));
 
 /**
  * @brief A function that performs a left rotation on a given node.
