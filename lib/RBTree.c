@@ -113,17 +113,17 @@ RBNode* RBInsert(RBTree* tree, void* data) {
         fprintf(stderr, "Internal Error: Failed to allocate a new node.\n");
         return 0;
     }
-    new_node->child_r = new_node->child_l = new_node->parent = &tree->nil;
+    new_node->child_r = new_node->child_l = new_node->parent = NULL;
     new_node->color = RED;
 
     //Set the node to hold the data
     new_node->data = data;
 
-    RBNode* temp = &tree->nil;
+    RBNode* temp = NULL;
     RBNode* cursor = tree->root;
 
     //Loop through the tree until the leaves
-    while(cursor != &tree->nil) {
+    while(cursor != NULL) {
         temp = cursor;
 
         //Proceed down on the left side if data is less than cursor
@@ -139,7 +139,7 @@ RBNode* RBInsert(RBTree* tree, void* data) {
     new_node->parent = temp;
 
     //Assign the new_node to the parent as a child according to data comparison
-    if(temp == &tree->nil)
+    if(temp == NULL)
         tree->root = new_node;
     else if(tree->compare(data, temp->data) < 0)
         temp->child_l = new_node;
